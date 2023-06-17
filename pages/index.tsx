@@ -1,6 +1,7 @@
 import Head from 'next/head';
 
-import Hero from '@components/index/hero';
+import Hero from '@components/hero';
+import ListBroadcasts from '@components/list-broadcasts';
 
 import type { NextPage } from 'next';
 
@@ -14,6 +15,9 @@ const Home: NextPage = () => {
 				<div className='relative z-10 flex h-full items-center justify-center'>
 					<Hero />
 				</div>
+			</div>
+			<div>
+				<ListBroadcasts />
 			</div>
 		</>
 	);
