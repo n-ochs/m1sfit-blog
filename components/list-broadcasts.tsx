@@ -9,7 +9,7 @@ const ListBroadcasts: React.FC = () => {
 	return (
 		isSuccess && (
 			<div>
-				{data.broadcasts?.map((e, i) => {
+				{data?.map((e, i) => {
 					return (
 						<div key={`${e.id}_${i}`}>
 							<Link href={`/blog/${e.id}`}>{e.subject}</Link>

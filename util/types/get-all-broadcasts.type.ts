@@ -1,2 +1,2 @@
-export type AllBroadcastResponseData = { broadcasts: AllBroadcasts };
-export type AllBroadcasts = { id: number; created_at: string; subject: string }[];
+export type AllBroadcastResponseData = { broadcasts: Broadcast[] };
+export type Broadcast = { id: number; created_at: string; subject: string };
