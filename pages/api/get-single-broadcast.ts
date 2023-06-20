@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastR
 				}
 			);
 
-			const showOnlyPublic: boolean = process.env.SHOW_ONLY_PUBLIC.toString().toLowerCase() === 'true' ? true : false;
+			const showOnlyPublic: boolean = process.env.SHOW_ONLY_PUBLIC?.toString()?.toLowerCase() === 'true' ? true : false;
 
 			if (showOnlyPublic) {
 				if (broadcastResp.data.broadcast.public) {
