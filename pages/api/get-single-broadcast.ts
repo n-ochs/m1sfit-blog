@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { SingleBroadcastResponseData } from '@util/types/get-single-broadcast.type';
+import { SingleBroadcastResponseData } from '@util/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastResponseData | any>): Promise<void> => {
 	if (req.method === 'GET') {
@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastR
 
 		try {
 			const broadcastResp: AxiosResponse<SingleBroadcastResponseData, any> = await axios.get(
-				`https://api.convertkit.com/v3/broadcasts/${broadcastId}?api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
+				`${process.env.CONVERT_KIT_API_BASE_URL}/broadcasts/${broadcastId}?api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
 				{
 					headers: { 'Content-Type': 'application/json' }
 				}

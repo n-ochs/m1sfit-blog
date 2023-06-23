@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -11,8 +12,9 @@ const ListBroadcasts: React.FC = () => {
 			<div>
 				{data?.map((e, i) => {
 					return (
-						<div key={`${e.id}_${i}`}>
-							<Link href={`/blog/${e.id}`}>{e.subject}</Link>
+						<div key={`${e.broadcast.id}_${i}`}>
+							<Image width={400} height={400} src={e.broadcast.thumbnail_url} alt={e.broadcast.thumbnail_alt || `${e.broadcast.subject}_thumbnail`} />
+							<Link href={`/blog/${e.broadcast.id}`}>{e.broadcast.subject}</Link>
 						</div>
 					);
 				})}

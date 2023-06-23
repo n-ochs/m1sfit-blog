@@ -14,7 +14,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<ResponseData>): 
 			if (emailPattern.test(req.body.email)) {
 				try {
 					await axios.post(
-						`https://api.convertkit.com/v3/forms/${process.env.CONVERT_KIT_FORM_ID}/subscribe`,
+						`${process.env.CONVERT_KIT_API_BASE_URL}/forms/${process.env.CONVERT_KIT_FORM_ID}/subscribe`,
 						{ api_key: `${process.env.CONVERT_KIT_API_KEY}`, email: req.body.email },
 						{ headers: { 'Content-Type': 'application/json' } }
 					);

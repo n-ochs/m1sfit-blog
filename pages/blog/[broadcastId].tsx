@@ -4,7 +4,7 @@ import React from 'react';
 
 import Footer from '@components/footer';
 import NotFound from '@components/not-found';
-import { SingleBroadcastResponseData } from '@util/types/get-single-broadcast.type';
+import { SingleBroadcastResponseData } from '@util/types';
 
 import type { NextPageContext } from 'next';
 export const getServerSideProps: (context: NextPageContext) => Promise<{

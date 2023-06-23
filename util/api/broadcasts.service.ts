@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-import { Broadcast } from '@util/types/get-all-broadcasts.type';
-import { SingleBroadcastResponseData } from '@util/types/get-single-broadcast.type';
+import { SingleBroadcastResponseData } from '@util/types';
 
-export const getAllBroadcasts: () => Promise<Broadcast[]> = async () => {
+export const getAllBroadcasts: () => Promise<Omit<SingleBroadcastResponseData, 'content' | 'sent_at'>[]> = async () => {
 	return (await axios.get('/api/get-all-broadcasts', { headers: { 'Content-Type': 'application/json' } }))?.data;
 };
 
