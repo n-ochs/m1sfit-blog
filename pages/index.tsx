@@ -11,12 +11,12 @@ const Home: NextPage = () => {
 			<Head>
 				<title>Meta Mondays</title>
 			</Head>
-			<div className='index-bg h-screen w-full'>
+			<div className='index-bg w-full'>
 				<div className='relative z-10 flex h-full items-center justify-center'>
 					<Hero />
 				</div>
 			</div>
-			<div>
+			<div className='min-h-[25vh] bg-black p-4 text-white'>
 				<ListBroadcasts />
 			</div>
 		</>

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React, { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
-import { BsDiscord, BsTwitter, BsYoutube } from 'react-icons/bs';
 
+import SocialLinks from '@components/social-links';
 import { useMutation } from '@tanstack/react-query';
 import { addSub } from '@util/api';
 
@@ -43,17 +43,7 @@ const Hero: React.FC = () => {
 					<p className='text-sm md:text-base'>
 						Subscribe to get my pro insight on how to improve your skills, impact your games and ignite your journey into high elo in less than 4 minutes every Monday.
 					</p>
-					<div className='flex items-center justify-center space-x-4'>
-						<a className='rounded-full bg-white p-2 hover:opacity-70' href='https://twitter.com/m1sfitx' target='_blank'>
-							<BsTwitter color='black' size='25px' />
-						</a>
-						<a className='rounded-full bg-white p-2 hover:opacity-70' href='https://discord.gg/m1sfit' target='_blank'>
-							<BsDiscord color='black' size='25px' />
-						</a>
-						<a className='rounded-full bg-white p-2 hover:opacity-70' href='https://www.youtube.com/@m1sfitx' target='_blank'>
-							<BsYoutube color='black' size='25px' />
-						</a>
-					</div>
+					<SocialLinks />
 				</div>
 
 				{/* Right */}
@@ -68,7 +58,7 @@ const Hero: React.FC = () => {
 							value={emailAddress}
 							onChange={(e) => setEmailAddress(e.target.value)}
 						/>
-						<button type='submit' className='btn animate-border white-box-shadow rounded-md bg-neutral-900 px-4 py-2 uppercase'>
+						<button type='submit' className='btn animate-border white-box-shadow w-full rounded-md bg-neutral-900 px-4 py-2 uppercase'>
 							Subscribe
 						</button>
 						<p className='text-center text-xs'>I will never sell your email. Unsubscribe at any time.</p>
