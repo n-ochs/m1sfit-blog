@@ -1,14 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { SingleBroadcastResponseData } from '@util/types';
+import { SingleBroadcastRespData } from '@util/types';
 
-export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastResponseData | any>): Promise<void> => {
+export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastRespData | any>): Promise<void> => {
 	if (req.method === 'GET') {
 		const broadcastId: string = req.query?.broadcastId as string;
 
 		try {
-			const broadcastResp: AxiosResponse<SingleBroadcastResponseData, any> = await axios.get(
+			const broadcastResp: AxiosResponse<SingleBroadcastRespData, any> = await axios.get(
 				`${process.env.CONVERT_KIT_API_BASE_URL}/broadcasts/${broadcastId}?api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
 				{
 					headers: { 'Content-Type': 'application/json' }
@@ -16,6 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastR
 			);
 
 			if (broadcastResp?.data?.broadcast?.content) {
+				// Some of the styling that comes from the ConvertKit API is not styled properly, so let's manually fix it
 				const tablePattern: RegExp = /<table\s/g;
 				const tableReplacement: string = '<table class="not-prose"';
 				const tableFixResult: string = broadcastResp.data.broadcast.content.replace(tablePattern, tableReplacement);
@@ -35,6 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastR
 				const dividerFixResult: string = zeroWidthSpaceFixResult.replace(dividerPattern, dividerReplacement);
 
 				broadcastResp.data.broadcast.content = dividerFixResult;
+
 				const showOnlyPublic: boolean = process.env.SHOW_ONLY_PUBLIC?.toString()?.toLowerCase() === 'true' ? true : false;
 
 				if (showOnlyPublic) {

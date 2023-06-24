@@ -1,4 +1,4 @@
-export type SingleBroadcastResponseData = {
+export type SingleBroadcastRespData = {
 	broadcast: {
 		id: number;
 		created_at: string;
@@ -14,3 +14,17 @@ export type SingleBroadcastResponseData = {
 		email_layout_template: string;
 	};
 };
+
+export class TrimmedBroadcast {
+	id: number = null;
+	subject: string = null;
+	description: string = null;
+	public: boolean = null;
+	published_at: string = null;
+	thumbnail_alt: string = null;
+	thumbnail_url: string = null;
+}
+
+export class TrimmedBroadcastRespData {
+	broadcast: TrimmedBroadcast = new TrimmedBroadcast();
+}

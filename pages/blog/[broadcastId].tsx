@@ -4,21 +4,22 @@ import React from 'react';
 
 import Footer from '@components/footer';
 import NotFound from '@components/not-found';
-import { SingleBroadcastResponseData } from '@util/types';
+import { SingleBroadcastRespData } from '@util/types';
 
 import type { NextPageContext } from 'next';
 export const getServerSideProps: (context: NextPageContext) => Promise<{
 	props:
 		| {
-				singleBroadcast: SingleBroadcastResponseData;
+				singleBroadcast: SingleBroadcastRespData;
 		  }
 		| {};
 }> = async (context: NextPageContext) => {
 	const broadcastId: string = context.query?.broadcastId as string;
+	const baseUrl: string = process.env.VERCEL_URL || process.env.DOMAIN || 'http://localhost:3000';
 
 	try {
-		const res: Response = await fetch(`${process.env.DOMAIN}/api/get-single-broadcast?broadcastId=${broadcastId}`);
-		const singleBroadcast: SingleBroadcastResponseData = (await res.json()) as SingleBroadcastResponseData;
+		const res: Response = await fetch(`${baseUrl}/api/get-single-broadcast?broadcastId=${broadcastId}`);
+		const singleBroadcast: SingleBroadcastRespData = (await res.json()) as SingleBroadcastRespData;
 
 		return { props: { singleBroadcast } };
 	} catch (error) {
@@ -26,7 +27,7 @@ export const getServerSideProps: (context: NextPageContext) => Promise<{
 	}
 };
 
-type BlogContentProps = { singleBroadcast: SingleBroadcastResponseData };
+type BlogContentProps = { singleBroadcast: SingleBroadcastRespData };
 
 const BlogContent: React.FC<BlogContentProps> = ({ singleBroadcast }) => {
 	return (
@@ -49,7 +50,7 @@ const BlogContent: React.FC<BlogContentProps> = ({ singleBroadcast }) => {
 							</p>
 						</article>
 					</main>
-					<Footer />
+					<Footer includeForm />
 				</div>
 			)}
 		</>

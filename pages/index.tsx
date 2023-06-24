@@ -1,11 +1,34 @@
 import Head from 'next/head';
 
+import Footer from '@components/footer';
 import Hero from '@components/hero';
 import ListBroadcasts from '@components/list-broadcasts';
+import { TrimmedBroadcastRespData } from '@util/types';
 
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
+export const getServerSideProps: () => Promise<{
+	props:
+		| {
+				data: TrimmedBroadcastRespData[];
+		  }
+		| {};
+}> = async () => {
+	const baseUrl: string = process.env.VERCEL_URL || process.env.DOMAIN || 'http://localhost:3000';
+
+	try {
+		const res: Response = await fetch(`${baseUrl}/api/get-all-broadcasts`);
+		const data: TrimmedBroadcastRespData = (await res.json()) as TrimmedBroadcastRespData;
+
+		return { props: { data } };
+	} catch (error) {
+		return { props: {} };
+	}
+};
+
+type IndexProps = { data: TrimmedBroadcastRespData[] };
+
+const Home: NextPage<IndexProps> = ({ data }) => {
 	return (
 		<>
 			<Head>
@@ -16,8 +39,9 @@ const Home: NextPage = () => {
 					<Hero />
 				</div>
 			</div>
-			<div className='min-h-[25vh] bg-black p-4 text-white'>
-				<ListBroadcasts />
+			<div className='flex min-h-[25vh] bg-black text-white'>{data?.length > 0 && <ListBroadcasts data={data} />}</div>
+			<div className='bg-black'>
+				<Footer includeForm={false} />
 			</div>
 		</>
 	);

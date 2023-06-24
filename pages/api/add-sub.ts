@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-type ResponseData = { message: string };
+type RespData = { message: string };
 
-export default async (req: NextApiRequest, res: NextApiResponse<ResponseData>): Promise<void> => {
+export default async (req: NextApiRequest, res: NextApiResponse<RespData>): Promise<void> => {
 	if (req.method === 'POST') {
 		if (req?.body && (!req?.body?.email || req?.body?.email === undefined || req?.body?.email === '')) {
 			res.status(400).json({ message: 'Email is required to subscribe' });

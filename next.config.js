@@ -10,7 +10,11 @@ module.exports = {
 				protocol: 'https',
 				hostname: 'pbs.twimg.com',
 				port: ''
-				// pathname: '/*'
+			},
+			{
+				protocol: 'https',
+				hostname: 'embed.filekitcdn.com',
+				port: ''
 			}
 		]
 	}
