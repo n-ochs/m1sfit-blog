@@ -18,7 +18,7 @@ const ListBroadcasts: React.FC<ListBroadcastsProps> = ({ data }) => {
 								width={400}
 								src={e.broadcast.thumbnail_url}
 								alt={e.broadcast.thumbnail_alt || `${e.broadcast.subject} thumbnail`}
-								className='white-box-shadow animate-border thumbnail rounded-lg'
+								className='white-box-shadow rounded-lg'
 							/>
 						</Link>
 						<Link href={`/blog/${e.broadcast.id}`}>

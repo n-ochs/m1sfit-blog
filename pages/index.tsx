@@ -39,7 +39,7 @@ const Home: NextPage<IndexProps> = ({ data }) => {
 					<Hero />
 				</div>
 			</div>
-			<div className='flex min-h-[25vh] bg-black text-white'>{data?.length > 0 && <ListBroadcasts data={data} />}</div>
+			<div className='min-h-[25vh] bg-black pl-0 text-white sm:pl-0 md:pl-0 xl:pl-80'>{data?.length > 0 && <ListBroadcasts data={data} />}</div>
 			<div className='bg-black'>
 				<Footer includeForm={false} />
 			</div>

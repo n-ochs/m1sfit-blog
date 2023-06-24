@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -41,8 +42,19 @@ const BlogContent: React.FC<BlogContentProps> = ({ singleBroadcast }) => {
 			) : (
 				<div className='pt-10 dark:bg-zinc-800 sm:pt-10 md:pt-24'>
 					<main className='prose-md prose prose-xl prose-zinc mx-auto px-2 dark:prose-invert'>
+						<div className='mb-4 flex w-full'>
+							<Image
+								height={675}
+								width={850}
+								src={singleBroadcast?.broadcast.thumbnail_url}
+								alt={singleBroadcast?.broadcast.thumbnail_alt || `${singleBroadcast?.broadcast.subject} thumbnail`}
+								className='white-box-shadow mx-auto my-0 h-auto w-auto rounded-lg'
+								priority
+								placeholder='empty'
+							/>
+						</div>
 						<h1 className='my-0 text-3xl'>{singleBroadcast?.broadcast?.subject}</h1>
-						<p className='mt-0'>m1sfit</p>
+						<p className='my-0'>m1sfit</p>
 						<article>
 							<section dangerouslySetInnerHTML={{ __html: singleBroadcast.broadcast.content }} />
 							<p className='my-0'>
