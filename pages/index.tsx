@@ -14,7 +14,7 @@ export const getServerSideProps: () => Promise<{
 		  }
 		| {};
 }> = async () => {
-	const baseUrl: string = process.env.DOMAIN || process.env.VERCEL_URL || 'http://localhost:3000';
+	const baseUrl: string = process.env.DOMAIN || process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
 	try {
 		const res: Response = await fetch(`${baseUrl}/api/get-all-broadcasts`);
@@ -29,12 +29,6 @@ export const getServerSideProps: () => Promise<{
 type IndexProps = { data: TrimmedBroadcastRespData[] };
 
 const Home: NextPage<IndexProps> = ({ data }) => {
-	// eslint-disable-next-line no-console
-	console.log('**debug - domain', process.env.DOMAIN);
-	// eslint-disable-next-line no-console
-	console.log('**debug - next_public_vercel_url', process.env.NEXT_PUBLIC_VERCEL_URL);
-	// eslint-disable-next-line no-console
-	console.log('**debug - next_public_vercel_branch_url', process.env.NEXT_PUBLIC_VERCEL_URL);
 	return (
 		<>
 			<Head>
