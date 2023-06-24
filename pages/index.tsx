@@ -33,6 +33,8 @@ const Home: NextPage<IndexProps> = ({ data }) => {
 	console.log('**debug - domain', process.env.DOMAIN);
 	// eslint-disable-next-line no-console
 	console.log('**debug - vercel_url', process.env.VERCEL_URL);
+	// eslint-disable-next-line no-console
+	console.log('**debug - vercel_branch_url', process.env.VERCEL_BRANCH_URL);
 	return (
 		<>
 			<Head>
