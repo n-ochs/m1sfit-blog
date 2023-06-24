@@ -16,10 +16,10 @@ export const getServerSideProps: (context: NextPageContext) => Promise<{
 		| {};
 }> = async (context: NextPageContext) => {
 	const broadcastId: string = context.query?.broadcastId as string;
-	const baseUrl: string = process.env.VERCEL_URL || process.env.DOMAIN || 'http://localhost:3000';
+	const baseUrl: string = process.env.DOMAIN || process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
 	try {
-		const res: Response = await fetch(`${baseUrl}/api/get-single-broadcast?broadcastId=${broadcastId}`);
+		const res: Response = await fetch(`https://${baseUrl}/api/get-single-broadcast?broadcastId=${broadcastId}`);
 		const singleBroadcast: SingleBroadcastRespData = (await res.json()) as SingleBroadcastRespData;
 
 		return { props: { singleBroadcast } };
