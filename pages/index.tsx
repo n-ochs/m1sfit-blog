@@ -29,6 +29,10 @@ export const getServerSideProps: () => Promise<{
 type IndexProps = { data: TrimmedBroadcastRespData[] };
 
 const Home: NextPage<IndexProps> = ({ data }) => {
+	// eslint-disable-next-line no-console
+	console.log('**debug - domain', process.env.DOMAIN);
+	// eslint-disable-next-line no-console
+	console.log('**debug - vercel_url', process.env.VERCEL_URL);
 	return (
 		<>
 			<Head>
