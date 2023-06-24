@@ -17,7 +17,7 @@ export const getServerSideProps: () => Promise<{
 	const baseUrl: string = process.env.DOMAIN || process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
 
 	try {
-		const res: Response = await fetch(`${baseUrl}/api/get-all-broadcasts`);
+		const res: Response = await fetch(`https://${baseUrl}/api/get-all-broadcasts`);
 		const data: TrimmedBroadcastRespData = (await res.json()) as TrimmedBroadcastRespData;
 
 		return { props: { data } };
