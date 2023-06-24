@@ -14,7 +14,7 @@ export const getServerSideProps: () => Promise<{
 		  }
 		| {};
 }> = async () => {
-	const baseUrl: string = process.env.VERCEL_URL || process.env.DOMAIN || 'http://localhost:3000';
+	const baseUrl: string = process.env.DOMAIN || process.env.VERCEL_URL || 'http://localhost:3000';
 
 	try {
 		const res: Response = await fetch(`${baseUrl}/api/get-all-broadcasts`);
