@@ -41,9 +41,11 @@ Navigate to [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Contributing
 
-Pull requests are welcome. Please create a separate branch with the following naming convention:
+Pull requests are welcome. Please create a fork and a separate branch with the following naming convention:
 
 -   Bugfixes:
     -   bugfix/branch_name
 -   Features:
     -   feat/branch_name
+
+After, create a pull request with a detailed description of your changes
