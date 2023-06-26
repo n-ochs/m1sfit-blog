@@ -3,10 +3,10 @@ import Head from 'next/head';
 import Footer from '@components/footer';
 import Hero from '@components/hero';
 import ListBroadcasts from '@components/list-broadcasts';
+import { getBaseUrl } from '@util/fns';
 import { TrimmedBroadcastRespData } from '@util/types';
 
 import type { NextPage } from 'next';
-
 export const getServerSideProps: () => Promise<{
 	props:
 		| {
@@ -14,11 +14,9 @@ export const getServerSideProps: () => Promise<{
 		  }
 		| {};
 }> = async () => {
-	const baseUrl: string = process.env.DOMAIN || process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000';
-
 	try {
-		const res: Response = await fetch(`https://${baseUrl}/api/get-all-broadcasts`);
-		const data: TrimmedBroadcastRespData = (await res.json()) as TrimmedBroadcastRespData;
+		const res: Response = await fetch(`${getBaseUrl()}/api/get-all-broadcasts`);
+		const data: TrimmedBroadcastRespData[] = (await res.json()) as TrimmedBroadcastRespData[];
 
 		return { props: { data } };
 	} catch (error) {

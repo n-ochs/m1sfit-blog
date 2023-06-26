@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { HttpMethod } from '@util/constants';
+
 type RespData = { message: string };
 
 export default async (req: NextApiRequest, res: NextApiResponse<RespData>): Promise<void> => {
-	if (req.method === 'POST') {
+	if (req.method === HttpMethod.POST) {
 		if (req?.body && (!req?.body?.email || req?.body?.email === undefined || req?.body?.email === '')) {
 			res.status(400).json({ message: 'Email is required to subscribe' });
 		}

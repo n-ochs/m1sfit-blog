@@ -2,11 +2,12 @@ import axios, { AxiosResponse } from 'axios';
 import dayjs from 'dayjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { HttpMethod } from '@util/constants';
 import { asyncForEach } from '@util/fns';
 import { AllBroadcastRespData, SingleBroadcastRespData, TrimmedBroadcastRespData } from '@util/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcastRespData[] | { message: 'Server error' }>): Promise<void> => {
-	if (req.method === 'GET') {
+	if (req.method === HttpMethod.GET) {
 		try {
 			const broadcastsResp: AxiosResponse<AllBroadcastRespData, any> = await axios.get(
 				`${process.env.CONVERT_KIT_API_BASE_URL}/broadcasts?page=1&api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
@@ -31,7 +32,6 @@ export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcast
 						const broadcastToBeAdded: TrimmedBroadcastRespData = new TrimmedBroadcastRespData();
 						broadcastToBeAdded.broadcast.id = singleBroadcastResp.data.broadcast.id;
 						broadcastToBeAdded.broadcast.subject = singleBroadcastResp.data.broadcast.subject.split('#')?.[1];
-						// broadcastToBeAdded.broadcast.subject = singleBroadcastResp.data.broadcast.subject;
 						broadcastToBeAdded.broadcast.description = singleBroadcastResp.data.broadcast.description;
 						broadcastToBeAdded.broadcast.public = singleBroadcastResp.data.broadcast.public;
 						broadcastToBeAdded.broadcast.published_at = dayjs(singleBroadcastResp.data.broadcast.published_at).format('MMMM D, YYYY');

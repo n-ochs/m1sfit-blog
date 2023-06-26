@@ -1,10 +1,11 @@
 import axios, { AxiosResponse } from 'axios';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import { HttpMethod } from '@util/constants';
 import { SingleBroadcastRespData } from '@util/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<SingleBroadcastRespData | any>): Promise<void> => {
-	if (req.method === 'GET') {
+	if (req.method === HttpMethod.GET) {
 		const broadcastId: string = req.query?.broadcastId as string;
 
 		try {
