@@ -20,16 +20,6 @@ a {
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-	.btn-primary {
-		@apply bg-primaryBlue hover:bg-primaryBlueHover active:bg-primaryBlueActive disabled:bg-primaryBlueDisabled inline-block rounded px-6 py-2.5 text-base font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg;
-	}
-
-	.btn-outlined {
-		@apply border-primaryBlue text-primaryBlue inline-block rounded border-1 border-solid bg-white px-4 py-2 text-base font-medium uppercase leading-tight shadow-md transition duration-150 ease-in-out hover:bg-gray-200 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-300 active:shadow-lg;
-	}
-}
-
 .index-bg {
 	position: relative;
 	height: 75vh;
