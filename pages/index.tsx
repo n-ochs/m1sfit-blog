@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios';
 import Head from 'next/head';
 
 import Footer from '@components/footer';
@@ -15,8 +16,8 @@ export const getServerSideProps: () => Promise<{
 		| {};
 }> = async () => {
 	try {
-		const res: Response = await fetch(`${getBaseUrl()}/api/get-all-broadcasts`);
-		const data: TrimmedBroadcastRespData[] = (await res.json()) as TrimmedBroadcastRespData[];
+		const res: AxiosResponse<TrimmedBroadcastRespData[], any> = await axios.get(`${getBaseUrl()}/api/get-all-broadcasts`);
+		const data: TrimmedBroadcastRespData[] = res?.data;
 
 		return { props: { data } };
 	} catch (error) {

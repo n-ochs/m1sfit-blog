@@ -15,6 +15,10 @@ module.exports = {
 				protocol: 'https',
 				hostname: 'embed.filekitcdn.com',
 				port: ''
+			},
+			{
+				protocol: 'https',
+				hostname: 'public.blob.vercel-storage.com' // needed for dev
 			}
 		]
 	}
