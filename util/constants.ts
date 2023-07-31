@@ -3,5 +3,11 @@ export abstract class HttpMethod {
 	static readonly POST: string = 'POST';
 	static readonly PUT: string = 'PUT';
 	static readonly PATCH: string = 'PATCH';
-	static readonly DELETE: string = 'PATCH';
+	static readonly DELETE: string = 'DELETE';
+}
+
+export abstract class Environment {
+	static readonly LOCAL: string = 'LOCAL';
+	static readonly PREVIEW: string = 'PREVIEW';
+	static readonly PRODUCTION: string = 'PRODUCTION';
 }

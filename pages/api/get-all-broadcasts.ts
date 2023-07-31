@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcast
 
 			const broadcastsData: TrimmedBroadcastRespData[] = [];
 			if (broadcastsResp?.data) {
-				const broadcastIds: number[] = broadcastsResp.data.broadcasts.filter((e) => e.subject.startsWith('Meta Mondays #'))?.map((e) => e.id);
+				const broadcastIds: number[] = broadcastsResp.data.broadcasts.filter((e) => e.subject.startsWith('Meta Mondays #') || e.subject.startsWith('MM#'))?.map((e) => e.id);
 				await asyncForEach<number>(broadcastIds, async (e) => {
 					const singleBroadcastResp: AxiosResponse<SingleBroadcastRespData, any> = await axios.get(
 						`${process.env.CONVERT_KIT_API_BASE_URL}/broadcasts/${e}?api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
