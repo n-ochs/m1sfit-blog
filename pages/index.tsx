@@ -8,6 +8,7 @@ import { getBaseUrl } from '@util/fns';
 import { TrimmedBroadcastRespData } from '@util/types';
 
 import type { NextPage } from 'next';
+
 export const getServerSideProps: () => Promise<{
 	props:
 		| {
