@@ -22,7 +22,7 @@ const ListBroadcasts: React.FC<ListBroadcastsProps> = ({ data }) => {
 							/>
 						</Link>
 						<Link href={`/blog/${e.broadcast.id}`}>
-							<p>#{e.broadcast.subject}</p>
+							<p>{e.broadcast.subject}</p>
 							<i>{e.broadcast.published_at}</i>
 						</Link>
 					</div>

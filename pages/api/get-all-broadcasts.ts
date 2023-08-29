@@ -17,8 +17,9 @@ export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcast
 			);
 
 			const broadcastsData: TrimmedBroadcastRespData[] = [];
-			if (broadcastsResp?.data) {
-				const broadcastIds: number[] = broadcastsResp.data.broadcasts.filter((e) => e.subject.startsWith('Meta Mondays #') || e.subject.startsWith('MM#'))?.map((e) => e.id);
+			if (broadcastsResp?.data && broadcastsResp.data?.broadcasts?.length > 0) {
+				// const broadcastIds: number[] = broadcastsResp.data.broadcasts.filter((e) => e.subject.startsWith('Meta Mondays #') || e.subject.startsWith('MM#'))?.map((e) => e.id);
+				const broadcastIds: number[] = broadcastsResp.data.broadcasts.map((e) => e.id);
 				await asyncForEach<number>(broadcastIds, async (e) => {
 					const singleBroadcastResp: AxiosResponse<SingleBroadcastRespData, any> = await axios.get(
 						`${process.env.CONVERT_KIT_API_BASE_URL}/broadcasts/${e}?api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
@@ -31,7 +32,7 @@ export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcast
 						// Could use delete, but probably too slow
 						const broadcastToBeAdded: TrimmedBroadcastRespData = new TrimmedBroadcastRespData();
 						broadcastToBeAdded.broadcast.id = singleBroadcastResp.data.broadcast.id;
-						broadcastToBeAdded.broadcast.subject = singleBroadcastResp.data.broadcast.subject.split('#')?.[1];
+						broadcastToBeAdded.broadcast.subject = singleBroadcastResp.data.broadcast.subject;
 						broadcastToBeAdded.broadcast.description = singleBroadcastResp.data.broadcast.description;
 						broadcastToBeAdded.broadcast.public = singleBroadcastResp.data.broadcast.public;
 						broadcastToBeAdded.broadcast.published_at = dayjs(singleBroadcastResp.data.broadcast.published_at).format('MMMM D, YYYY');
