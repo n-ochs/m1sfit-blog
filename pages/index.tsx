@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import Head from 'next/head';
+import Script from 'next/script';
 
 import Footer from '@components/footer';
 import Hero from '@components/hero';
@@ -8,7 +9,6 @@ import { getBaseUrl } from '@util/fns';
 import { TrimmedBroadcastRespData } from '@util/types';
 
 import type { NextPage } from 'next';
-
 export const getServerSideProps: () => Promise<{
 	props:
 		| {
@@ -31,6 +31,16 @@ type IndexProps = { data: TrimmedBroadcastRespData[] };
 const Home: NextPage<IndexProps> = ({ data }) => {
 	return (
 		<>
+			<Script src='https://www.googletagmanager.com/gtag/js?id=G-QY7CTL9XWQ' />
+			<Script id='google-analytics'>
+				{`
+          			window.dataLayer = window.dataLayer || [];
+		  			function gtag(){dataLayer.push(arguments);}
+		  			gtag('js', new Date());
+		
+		  			gtag('config', 'G-QY7CTL9XWQ');
+        		`}
+			</Script>
 			<Head>
 				<title>Meta Mondays</title>
 			</Head>
