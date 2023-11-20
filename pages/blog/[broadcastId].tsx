@@ -1,42 +1,50 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { NextRouter, useRouter } from 'next/router';
 import React, { useState } from 'react';
 
 import Banner from '@components/banner';
 import Footer from '@components/footer';
 import NotFound from '@components/not-found';
-import { getBaseUrl } from '@util/fns';
-import { SingleBroadcastRespData } from '@util/types';
+import { useQuery } from '@tanstack/react-query';
+import { getSingleBroadcast } from '@util/api';
+import { QueryKeys } from '@util/constants';
 
-import type { NextPageContext } from 'next';
+const BlogContent: React.FC = () => {
+	const router: NextRouter = useRouter();
+	const broadcastId: string = router.query?.broadcastId as string;
+	const { data: singleBroadcast, isLoading, isError } = useQuery({ queryKey: [QueryKeys.SINGLE_BROADCAST, Number(broadcastId)], queryFn: () => getSingleBroadcast(broadcastId) });
 
-export const getServerSideProps: (context: NextPageContext) => Promise<{
-	props:
-		| {
-				singleBroadcast: SingleBroadcastRespData;
-		  }
-		| {};
-}> = async (context: NextPageContext) => {
-	const broadcastId: string = context.query?.broadcastId as string;
-	try {
-		const res: Response = await fetch(`${getBaseUrl()}/api/get-single-broadcast?broadcastId=${broadcastId}`);
-		const singleBroadcast: SingleBroadcastRespData = (await res.json()) as SingleBroadcastRespData;
-
-		return { props: { singleBroadcast } };
-	} catch (error) {
-		return { props: {} };
-	}
-};
-
-type BlogContentProps = { singleBroadcast: SingleBroadcastRespData };
-
-const BlogContent: React.FC<BlogContentProps> = ({ singleBroadcast }) => {
 	const [isVisible, setIsVisible] = useState<boolean>(true);
 
 	const handleCloseBanner: () => void = () => {
 		setIsVisible(false);
 	};
+
+	if (isLoading) {
+		return (
+			<>
+				<Head>
+					<title>Meta Mondays</title>
+				</Head>
+				<div className='h-screen w-screen bg-[#27272a] flex items-center justify-center'>
+					<div className='animate-spin border-t-4 border-blue-500 border-solid h-16 w-16 rounded-full'></div>
+				</div>
+			</>
+		);
+	}
+
+	if (isError) {
+		return (
+			<>
+				<Head>
+					<title>Meta Mondays</title>
+				</Head>
+				<span>Error</span>
+			</>
+		);
+	}
 
 	return (
 		<>
@@ -56,9 +64,9 @@ const BlogContent: React.FC<BlogContentProps> = ({ singleBroadcast }) => {
 								width={850}
 								src={singleBroadcast?.broadcast.thumbnail_url}
 								alt={singleBroadcast?.broadcast.thumbnail_alt || `${singleBroadcast?.broadcast.subject} thumbnail`}
-								className='white-box-shadow mx-auto my-0 h-auto w-auto rounded-lg'
+								className='white-box-shadow mx-auto my-0 h-auto w-auto rounded-lg transition-opactiy opacity-0 duration-[1.5s]'
+								onLoadingComplete={(img) => img.classList.remove('opacity-0')}
 								priority
-								placeholder='empty'
 							/>
 						</div>
 						<h1 className='my-0 text-3xl'>{singleBroadcast?.broadcast?.subject}</h1>

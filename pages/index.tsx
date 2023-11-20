@@ -1,33 +1,16 @@
-import axios, { AxiosResponse } from 'axios';
 import Head from 'next/head';
 
 import Footer from '@components/footer';
 import Hero from '@components/hero';
 import ListBroadcasts from '@components/list-broadcasts';
-import { getBaseUrl } from '@util/fns';
-import { TrimmedBroadcastRespData } from '@util/types';
+import { useQuery } from '@tanstack/react-query';
+import { getAllBroadcasts } from '@util/api';
+import { QueryKeys } from '@util/constants';
 
 import type { NextPage } from 'next';
-export const getServerSideProps: () => Promise<{
-	props:
-		| {
-				data: TrimmedBroadcastRespData[];
-		  }
-		| {};
-}> = async () => {
-	try {
-		const res: AxiosResponse<TrimmedBroadcastRespData[], any> = await axios.get(`${getBaseUrl()}/api/get-all-broadcasts`);
-		const data: TrimmedBroadcastRespData[] = res?.data;
 
-		return { props: { data } };
-	} catch (error) {
-		return { props: {} };
-	}
-};
-
-type IndexProps = { data: TrimmedBroadcastRespData[] };
-
-const Home: NextPage<IndexProps> = ({ data }) => {
+const Home: NextPage = () => {
+	const { data: blogPosts, isLoading } = useQuery({ queryKey: [QueryKeys.LIST_BROADCASTS], queryFn: getAllBroadcasts });
 	return (
 		<>
 			{/* <Script src='https://www.googletagmanager.com/gtag/js?id=G-QY7CTL9XWQ' />
@@ -36,7 +19,7 @@ const Home: NextPage<IndexProps> = ({ data }) => {
           			window.dataLayer = window.dataLayer || [];
 		  			function gtag(){dataLayer.push(arguments);}
 		  			gtag('js', new Date());
-		
+
 		  			gtag('config', 'G-QY7CTL9XWQ');
         		`}
 			</Script> */}
@@ -48,7 +31,10 @@ const Home: NextPage<IndexProps> = ({ data }) => {
 					<Hero />
 				</div>
 			</div>
-			<div className='min-h-[25vh] bg-black pl-0 text-white sm:pl-0 md:pl-0 xl:pl-80'>{data?.length > 0 && <ListBroadcasts data={data} />}</div>
+			<div className='min-h-[25vh] bg-black pl-0 text-white sm:pl-0 md:pl-0 xl:pl-80'>
+				{isLoading && <div className=' mx-auto animate-spin border-t-4 border-white border-solid h-16 w-16 rounded-full'></div>}
+				{blogPosts && blogPosts?.length > 0 && <ListBroadcasts data={blogPosts} />}
+			</div>
 			<div className='bg-black'>
 				<Footer includeForm={false} />
 			</div>

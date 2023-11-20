@@ -7,5 +7,5 @@ export const getAllBroadcasts: () => Promise<TrimmedBroadcastRespData[]> = async
 };
 
 export const getSingleBroadcast: (broadcastId: string) => Promise<SingleBroadcastRespData> = async (broadcastId: string) => {
-	return axios.get(`/api/get-single-broadcast?broadcastId=${broadcastId}`, { headers: { 'Content-Type': 'application/json' } });
+	return (await axios.get(`/api/get-single-broadcast?broadcastId=${broadcastId}`, { headers: { 'Content-Type': 'application/json' } }))?.data;
 };

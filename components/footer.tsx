@@ -32,7 +32,7 @@ const Footer: React.FC<FooterProps> = ({ includeForm }) => {
 
 	return (
 		<footer className='pt-12 text-black dark:text-white'>
-			<div className='mx-auto max-w-screen-xl px-4 md:px-8'>
+			<div className='w-full px-2 md:px-8 lg:px-0'>
 				{includeForm && (
 					<div className='items-center justify-between gap-12 md:flex'>
 						<div className='max-w-lg flex-1'>
@@ -57,7 +57,7 @@ const Footer: React.FC<FooterProps> = ({ includeForm }) => {
 					</div>
 				)}
 
-				<div className='mt-10 flex items-center justify-between border-t py-10 sm:flex-col md:flex-row'>
+				<div className='mt-10 flex items-center justify-between border-t py-10 sm:flex-col md:flex-row px-0 lg:px-12'>
 					<p>© 2023 m1sfit</p>
 					<SocialLinks />
 				</div>
