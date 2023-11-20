@@ -18,8 +18,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcast
 
 			const broadcastsData: TrimmedBroadcastRespData[] = [];
 			if (broadcastsResp?.data && broadcastsResp.data?.broadcasts?.length > 0) {
-				// const broadcastIds: number[] = broadcastsResp.data.broadcasts.filter((e) => e.subject.startsWith('Meta Mondays #') || e.subject.startsWith('MM#'))?.map((e) => e.id);
-				const broadcastIds: number[] = broadcastsResp.data.broadcasts.map((e) => e.id);
+				// This comes oldest to newest, so lets reverse the order
+				const broadcastIds: number[] = broadcastsResp.data.broadcasts.map((e) => e.id)?.reverse();
 				await asyncForEach<number>(broadcastIds, async (e) => {
 					const singleBroadcastResp: AxiosResponse<SingleBroadcastRespData, any> = await axios.get(
 						`${process.env.CONVERT_KIT_API_BASE_URL}/broadcasts/${e}?api_secret=${process.env.CONVERT_KIT_API_SECRET}`,
@@ -43,9 +43,10 @@ export default async (req: NextApiRequest, res: NextApiResponse<TrimmedBroadcast
 					}
 				});
 			}
-
-			res.status(200).json(broadcastsData.reverse());
+			res.status(200).json(broadcastsData);
 		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.error(error);
 			res.status(500).json({ message: 'Server error' });
 		}
 	}
